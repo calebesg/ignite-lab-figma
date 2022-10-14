@@ -12,11 +12,11 @@ module.exports = {
   features: {
     storyStoreV7: true,
   },
-  // viteFinal: (config, { configType }) => {
-  //   if (configType === 'PRODUCTION') {
-  //     config.base = '/ignite-lab-figma/'
-  //   }
+  viteFinal: (config, { configType }) => {
+    if (configType === 'PRODUCTION') {
+      config.base = '/ignite-lab-figma/'
+    }
 
-  //   return config
-  // },
+    return config
+  },
 }
