@@ -1,5 +1,7 @@
+import { FormEvent, useState } from 'react'
 import { Checkbox } from '@radix-ui/react-checkbox'
 import { Envelope, Lock } from 'phosphor-react'
+import axios from 'axios'
 
 import { Button } from '../components/Button'
 import { Heading } from '../components/Heading'
@@ -8,6 +10,19 @@ import { TextInput } from '../components/TextInput'
 import Logo from '../Logo'
 
 export function SignIn() {
+  const [isLoginSuccess, setIsLoginSuccess] = useState(false)
+
+  async function handleSubmit(event: FormEvent) {
+    event.preventDefault()
+
+    await axios.post('/sessions', {
+      email: 'calebeguimaraes10@gmail.com',
+      password: '123456',
+    })
+
+    setIsLoginSuccess(true)
+  }
+
   return (
     <div className="w-screen h-screen bg-gray-900 flex flex-col items-center justify-center text-gray-100">
       <header className="flex flex-col items-center">
@@ -22,7 +37,12 @@ export function SignIn() {
         </Text>
       </header>
 
-      <form className="flex flex-col items-stretch gap-4 w-full max-w-sm mt-10">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col items-stretch gap-4 w-full max-w-sm mt-10"
+      >
+        {isLoginSuccess && <Text size="sm">Login realizado!</Text>}
+
         <label htmlFor="email" className="flex flex-col gap-3">
           <Text className="font-semibold">Endereço de e-mail</Text>
           <TextInput.Root>
